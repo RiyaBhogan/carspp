@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Predictor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 28px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 18px;
+            color: #444;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0,123,255,0.2);
+        }
+        .radio-group {
+            margin: 12px 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .radio-group input {
+            display: none;
+        }
+        .radio-group label {
+            background: #f1f1f1;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .radio-group input:checked + label {
+            background: #007bff;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+        }
+        input[type="submit"] {
+            width: 100%;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 17px;
+            cursor: pointer;
+            margin-top: 25px;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        .result {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: green;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🚗 Car Price Predictor</h2>
+        <form method="POST">
+
+            <label>Car Name</label>
+            <input type="text" name="car_name" placeholder="e.g., Swift Dzire, Honda City" required>
+
+            <label>Brand</label>
+            <input type="text" name="brand" placeholder="e.g., Maruti, Honda, Hyundai" required>
+
+            <label>Car Model</label>
+            <input type="text" name="car_model" placeholder="e.g., VXI, LXI, ZDI" required>
+
+            <label>Vehicle Age (in years)</label>
+            <input type="number" step="0.1" min="0" name="vehicle_age" placeholder="e.g., 5" required>
+
+            <label>Kilometers Driven</label>
+            <input type="number" min="0" name="km_driven" placeholder="e.g., 45000" required>
+
+            <!-- Seller Type -->
+            <label>Seller Type</label>
+            <div class="radio-group">
+                <input type="radio" id="dealer" name="seller_type" value="Dealer" required>
+                <label for="dealer">Dealer</label>
+
+                <input type="radio" id="individual" name="seller_type" value="Individual">
+                <label for="individual">Individual</label>
+            </div>
+
+            <!-- Fuel Type -->
+            <label>Fuel Type</label>
+            <div class="radio-group">
+                <input type="radio" id="petrol" name="fuel_type" value="Petrol" required>
+                <label for="petrol">Petrol</label>
+
+                <input type="radio" id="diesel" name="fuel_type" value="Diesel">
+                <label for="diesel">Diesel</label>
+            </div>
+
+            <!-- Transmission -->
+            <label>Transmission</label>
+            <div class="radio-group">
+                <input type="radio" id="manual" name="transmission_type" value="Manual" required>
+                <label for="manual">Manual</label>
+
+                <input type="radio" id="automatic" name="transmission_type" value="Automatic">
+                <label for="automatic">Automatic</label>
+            </div>
+
+            <label>Mileage (km/l)</label>
+            <input type="number" step="0.1" min="0" name="mileage" placeholder="e.g., 18.5" required>
+
+            <label>Engine (CC)</label>
+            <input type="number" min="0" name="engine" placeholder="e.g., 1197" required>
+
+            <label>Max Power (bhp)</label>
+            <input type="number" step="0.1" min="0" name="max_power" placeholder="e.g., 82.5" required>
+
+            <label>Seats</label>
+            <input type="number" min="1" name="seats" placeholder="e.g., 5" required>
+
+            <input type="submit" value="🚀 Predict Price">
+        </form>
+
+        {% if price is not none %}
+        <div class="result">
+            Predicted Price: 💰 ₹ {{ price | round(2) }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
